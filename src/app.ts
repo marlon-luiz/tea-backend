@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 
 import Database from './database'
@@ -32,6 +32,14 @@ class App {
     })
 
     this.express.use(routes)
+
+    // Error Handler
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.express.use((err: any, req: Request, res: Response, next: NextFunction) => {
+      res.status(500).json({ error: err.message })
+
+      next()
+    })
   }
 }
 
