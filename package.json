@@ -1,11 +1,12 @@
 {
   "name": "tea-backend",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "prod": ""
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -16,6 +17,7 @@
     "md5": "^2.2.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
+    "pm2": "^3.5.1",
     "sequelize": "^5.18.4"
   },
   "devDependencies": {
