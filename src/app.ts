@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
+import logger from './logger'
 
 import Database from './database'
 import routes from './routes'
@@ -31,6 +32,11 @@ class App {
       })
     })
 
+    this.express.use((req: Request, res: Response, next: NextFunction) => {
+      logger.debug(req.method)
+
+      next()
+    })
     this.express.use(routes)
 
     // Error Handler

@@ -5,7 +5,15 @@ import User from './User'
 
 const sequelize = Database.connect()
 
-class Autist extends Model {}
+class Autist extends Model {
+  id?: number;
+  name?: string;
+  responsibleId?: number;
+  createdAt?: Date;
+  createdBy?: number;
+  updatedAt?: Date;
+  updatedBy?: number;
+}
 Autist.init({
   name: {
     type: Sequelize.STRING(200),
@@ -13,21 +21,20 @@ Autist.init({
   }
 }, {
   sequelize,
-  modelName: 'autists',
-  underscored: true
+  modelName: 'autists'
 })
 
 User.hasOne(Autist, {
   foreignKey: {
-    name: 'responsible_id',
+    name: 'responsibleId',
     allowNull: false
   }
 })
 User.hasMany(Autist, {
-  foreignKey: 'created_by'
+  foreignKey: 'createdBy'
 })
 User.hasMany(Autist, {
-  foreignKey: 'updated_by'
+  foreignKey: 'updatedBy'
 })
 
 export default Autist

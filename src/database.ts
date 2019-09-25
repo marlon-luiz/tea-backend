@@ -1,11 +1,18 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize, Options } from 'sequelize'
 
 export default class Database {
-  private static sequelize: Sequelize = null
+  private static sequelize: Sequelize
 
   static connect (): Sequelize {
     if (this.sequelize === null) {
-      this.sequelize = new Sequelize('postgres://postgres:m19980130@localhost:5432/tea')
+      const uri: string = process.env.DB_HOST || ''
+      const options: Options = {
+        dialectOptions: {
+          ssl: process.env.DB_SSL !== 'false'
+        }
+      }
+
+      this.sequelize = new Sequelize(uri, options)
 
       // this.sequelize
       //   .authenticate()

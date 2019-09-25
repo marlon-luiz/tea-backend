@@ -5,13 +5,13 @@ import Database from '../database'
 const sequelize = Database.connect()
 
 class User extends Model {
-  public id: number;
-  public email: string;
-  public password: string;
-  public name: string;
-  public type: string;
-  public createdAt: Date;
-  public updatedAt: Date;
+  public id?: number;
+  public email?: string;
+  public password?: string;
+  public name?: string;
+  public type?: string;
+  public createdAt?: Date;
+  public updatedAt?: Date;
 }
 
 User.init({
@@ -34,8 +34,7 @@ User.init({
   }
 }, {
   sequelize,
-  modelName: 'users',
-  underscored: true
+  modelName: 'users'
 })
 
 export default User

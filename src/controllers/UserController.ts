@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { WhereAttributeHash } from 'sequelize'
 import _ from 'lodash'
 import md5 from 'md5'
 
@@ -75,14 +76,14 @@ class UserController {
    * ```
    */
   public async login (req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.headers
+    const { email = '', password = '' } = req.headers
 
-    const countUsers = await User.count({
-      where: {
-        email,
-        password: md5(password as string)
-      }
-    })
+    const where: WhereAttributeHash = {
+      email,
+      password: md5(String(password))
+    }
+
+    const countUsers = await User.count({ where })
 
     return res.json({
       authenticated: countUsers === 1
