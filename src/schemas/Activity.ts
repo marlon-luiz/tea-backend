@@ -6,7 +6,16 @@ import Autist from './Autist'
 
 const sequelize = Database.connect()
 
-class Activity extends Model {}
+class Activity extends Model {
+  public id?: number;
+  public title?: string;
+  public description?: string;
+  public start?: Date;
+  public end?: Date;
+  public repeat?: number;
+  public repeatEvery?: string;
+  public repeatOn?: string;
+}
 Activity.init({
   title: {
     type: Sequelize.STRING(200),
@@ -26,16 +35,15 @@ Activity.init({
   repeatOn: Sequelize.STRING(7)
 }, {
   sequelize,
-  modelName: 'activities',
-  underscored: true
+  modelName: 'activities'
 })
 
 Autist.hasMany(Activity)
-User.hasMany(Autist, {
-  foreignKey: 'created_by'
+User.hasMany(Activity, {
+  foreignKey: 'createdBy'
 })
-User.hasMany(Autist, {
-  foreignKey: 'updated_by'
+User.hasMany(Activity, {
+  foreignKey: 'updatedBy'
 })
 
 export default Activity
