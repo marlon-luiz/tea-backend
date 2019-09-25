@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "build": "tsc",
-    "prod": ""
+    "build": "tsc"
   },
   "dependencies": {
     "cors": "^2.8.5",

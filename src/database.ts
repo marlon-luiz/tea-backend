@@ -4,7 +4,7 @@ export default class Database {
   private static sequelize: Sequelize
 
   static connect (): Sequelize {
-    if (this.sequelize === null) {
+    if (!this.sequelize) {
       const uri: string = process.env.DB_HOST || ''
       const options: Options = {
         dialectOptions: {
