@@ -5,14 +5,25 @@ export default class Database {
 
   static connect (): Sequelize {
     if (!this.sequelize) {
-      const uri: string = process.env.DB_HOST || ''
+      const {
+        DB_USER:user = '',
+        DB_PASS:pass = '',
+        DB_HOST:host = '',
+        DB_PORT:port,
+        DB_NAME:database = '',
+        DB_SSL:ssl
+      } = process.env
+
       const options: Options = {
+        host,
+        port: Number(port),
+        dialect : 'postgres',
         dialectOptions: {
-          ssl: process.env.DB_SSL !== 'false'
+          ssl: ssl !== 'false'
         }
       }
 
-      this.sequelize = new Sequelize(uri, options)
+      this.sequelize = new Sequelize(database, user, pass, options)
 
       // this.sequelize
       //   .authenticate()
