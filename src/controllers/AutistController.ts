@@ -10,16 +10,14 @@ class AustistController {
    *
    * @returns
    * ```js
-   *  {
-   *    autists: [
-   *      {
-   *        id: 1,
-   *        name: 'Fernando',
-   *        responsibleId: 2
-   *      },
-   *      ...
-   *    ]
-   *  }
+   *  [
+   *    {
+   *      id: 1,
+   *      name: 'Fernando',
+   *      responsibleId: 2
+   *    },
+   *    ...
+   *  ]
    * ```
    */
   public async index (req: Request, res: Response): Promise<Response> {
@@ -27,7 +25,7 @@ class AustistController {
       attributes: ['id', 'name', 'responsibleId']
     })
 
-    return res.json({ autists })
+    return res.json(autists)
   }
 
   public async store (req: Request, res: Response): Promise<Response> {
