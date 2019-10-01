@@ -28,6 +28,19 @@ class AustistController {
     return res.json(autists)
   }
 
+  public async autistsByCreator (req: Request, res: Response): Promise<Response> {
+    const { user = '' } = req.headers
+
+    const autists = await Autist.findAll({
+      where: {
+        createdBy: user
+      },
+      attributes: ['id', 'name', 'responsibleId']
+    })
+
+    return res.json(autists)
+  }
+
   public async store (req: Request, res: Response): Promise<Response> {
     const { name, responsibleId, user } = req.body
     const errors = []

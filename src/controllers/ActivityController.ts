@@ -7,7 +7,19 @@ import Activity from '../schemas/Activity'
 
 class ActivityController {
   public async index (req: Request, res: Response): Promise<Response> {
-    const activities = await Activity.findAll()
+    const activities = await Activity.findAll({
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'start',
+        'end',
+        'repeat',
+        'repeatEvery',
+        'repeatOn',
+        'autistId'
+      ]
+    })
 
     return res.json(activities)
   }
@@ -18,8 +30,27 @@ class ActivityController {
     return res.json(activity)
   }
 
-  public async findByAutist (req: Request, res: Response): Promise<Response> {
-    const activities = await Activity.findByPk(req.params.autistId)
+  public async activitiesByAutist (req: Request, res: Response): Promise<Response> {
+    const { autistId } = req.params
+    // const { date } = req.query
+
+    const activities = await Activity.findAll({
+      where: {
+        autistId
+      },
+      order: ['start'],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'start',
+        'end',
+        'repeat',
+        'repeatEvery',
+        'repeatOn',
+        'autistId'
+      ]
+    })
 
     return res.json(activities)
   }

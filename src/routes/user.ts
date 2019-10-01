@@ -1,12 +1,14 @@
 import { Router } from 'express'
 
 import UserController from '../controllers/UserController'
+import AutistController from '../controllers/AutistController'
 import wrapAsync from '../wrapAsync'
 
 const router = Router()
 
 router.get('/', wrapAsync(UserController.index)) // Retorna a lista de usuários
 router.get('/:id(\\d+)', wrapAsync(UserController.find)) // Retorna o usuário pelo id
+router.get('/:id(\\d+)/autists', wrapAsync(AutistController.autistsByCreator)) // Retorna o usuário pelo id
 router.get('/login', wrapAsync(UserController.login)) // Verificar o login do usuário
 router.post('/', wrapAsync(UserController.store)) // Insere o usuário
 router.put('/:id(\\d+)', wrapAsync(UserController.update)) // Atualiza o usuário
