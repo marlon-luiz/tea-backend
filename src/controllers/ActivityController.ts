@@ -1,13 +1,14 @@
 import { Request, Response } from 'express'
 import _ from 'lodash'
 
-// import Autist from '../schemas/Autist'
-import User from '../schemas/User'
 import Activity from '../schemas/Activity'
 
 class ActivityController {
   public async index (req: Request, res: Response): Promise<Response> {
+    const { autistId } = req.params
+
     const activities = await Activity.findAll({
+      where: { autistId },
       attributes: [
         'id',
         'title',
@@ -30,48 +31,9 @@ class ActivityController {
     return res.json(activity)
   }
 
-  public async activitiesByAutist (req: Request, res: Response): Promise<Response> {
-    const { autistId } = req.params
-    // const { date } = req.query
-
-    const activities = await Activity.findAll({
-      where: {
-        autistId
-      },
-      order: ['start'],
-      attributes: [
-        'id',
-        'title',
-        'description',
-        'start',
-        'end',
-        'repeat',
-        'repeatEvery',
-        'repeatOn',
-        'autistId'
-      ]
-    })
-
-    return res.json(activities)
-  }
-
   public async store (req: Request, res: Response): Promise<Response> {
-    const { title, description, start, end, repeat, repeatEvery, repeatOn, autistId, user } = req.body
-    const errors = []
-
-    const autist = await User.findByPk(autistId)
-    if (autist === null) {
-      errors.push('Não foi possível encontrar o autista.')
-    }
-
-    const creator = await User.findByPk(user)
-    if (creator === null) {
-      errors.push('Não foi possível encontrar o cridor.')
-    }
-
-    if (errors.length) {
-      throw new Error(errors.join('\n'))
-    }
+    const { title, description, start, end, repeat, repeatEvery, repeatOn, autistId } = req.body
+    const { user } = req.headers
 
     const activity = await Activity.create({
       title,
@@ -100,13 +62,9 @@ class ActivityController {
 
   public async update (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
-    const { title, description, start, end, repeat, repeatEvery, repeatOn, user } = req.body
+    const { title, description, start, end, repeat, repeatEvery, repeatOn } = req.body
+    const { user } = req.headers
     const errors = []
-
-    const updater = await User.findByPk(user)
-    if (updater === null) {
-      errors.push('Não foi possível encontrar o atualizador.')
-    }
 
     let activity = await Activity.findByPk(id, {
       attributes: [

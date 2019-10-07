@@ -2,6 +2,8 @@ import 'dotenv/config'
 
 import app from './app'
 
-app.listen(process.env.PORT)
+const port = process.env.PORT || 3333
 
-console.log('Listening to the port', process.env.PORT)
+app.listen(port)
+
+console.log('Listening to the port', port)

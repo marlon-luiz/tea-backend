@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { WhereAttributeHash } from 'sequelize'
 import _ from 'lodash'
 import md5 from 'md5'
 
@@ -63,34 +62,6 @@ class UserController {
   }
 
   /**
-   * Retorna se o usuário logou no sistema com sucesso.
-   *
-   * @header email string
-   * @header password string
-   *
-   * @returns
-   * ```js
-   *  {
-   *    authenticated: true|false
-   *  }
-   * ```
-   */
-  public async login (req: Request, res: Response): Promise<Response> {
-    const { email = '', password = '' } = req.headers
-
-    const where: WhereAttributeHash = {
-      email,
-      password: md5(String(password))
-    }
-
-    const countUsers = await User.count({ where })
-
-    return res.json({
-      authenticated: countUsers === 1
-    })
-  }
-
-  /**
    * Insere o usuário no banco de dados.
    *
    * @param email string
@@ -112,16 +83,6 @@ class UserController {
    */
   public async store (req: Request, res: Response): Promise<Response> {
     const { email, password, name, type } = req.body
-
-    const existingUser = await User.findOne({
-      where: {
-        email
-      }
-    })
-
-    if (existingUser !== null) {
-      throw new Error('Já existe um usuário com este e-mail cadastrado.')
-    }
 
     const user = await User.create({
       email,
