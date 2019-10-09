@@ -26,7 +26,9 @@ class ActivityController {
   }
 
   public async find (req: Request, res: Response): Promise<Response> {
-    const activity = await Activity.findByPk(req.params.id)
+    const { id } = req.params
+
+    const activity = await Activity.findByPk(id)
 
     return res.json(activity)
   }

@@ -7,6 +7,7 @@ import wrapAsync from '../wrapAsync'
 const router = Router()
 
 router.get('/', wrapAsync(AutistController.index))
+router.get('/:id(\\d+)', wrapAsync(AutistController.find))
 router.get('/:autistId(\\d+)/activities', wrapAsync(ActivityController.index))
 router.post('/', wrapAsync(AutistController.store))
 router.put('/:id(\\d+)', wrapAsync(AutistController.update))

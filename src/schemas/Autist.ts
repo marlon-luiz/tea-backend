@@ -39,8 +39,8 @@ Autist.init({
       const responsibleId = this.responsibleId as number
       const responsible = await User.findByPk(responsibleId)
 
-      if (responsible === null) {
-        throw new Error('Não foi possível encontrar o usuário criador.')
+      if (responsible === null || responsible.type !== 'C') {
+        throw new Error('Não foi possível encontrar o cuidador.')
       }
     },
     async creator (): Promise<void> {
@@ -67,6 +67,10 @@ User.hasOne(Autist, {
     name: 'responsibleId',
     allowNull: false
   }
+})
+Autist.belongsTo(User, {
+  foreignKey: 'responsibleId',
+  as: 'responsible'
 })
 User.hasMany(Autist, {
   foreignKey: 'createdBy'

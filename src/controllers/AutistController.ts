@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import _ from 'lodash'
 
 import Autist from '../schemas/Autist'
+import User from '../schemas/User'
 
 class AustistController {
   public async index (req: Request, res: Response): Promise<Response> {
@@ -9,10 +10,36 @@ class AustistController {
 
     const autists = await Autist.findAll({
       where: { createdBy: String(user) },
-      attributes: ['id', 'name', 'responsibleId']
+      attributes: ['id', 'name', 'responsibleId'],
+      include: [
+        {
+          model: User,
+          foreignKey: 'responsibleId',
+          as: 'responsible',
+          attributes: ['name']
+        }
+      ]
     })
 
     return res.json(autists)
+  }
+
+  public async find (req: Request, res: Response): Promise<Response> {
+    const { id } = req.params
+
+    const autist = await Autist.findByPk(id, {
+      attributes: ['id', 'name', 'responsibleId'],
+      include: [
+        {
+          model: User,
+          foreignKey: 'responsibleId',
+          as: 'responsible',
+          attributes: ['name']
+        }
+      ]
+    })
+
+    return res.json(autist)
   }
 
   public async store (req: Request, res: Response): Promise<Response> {
