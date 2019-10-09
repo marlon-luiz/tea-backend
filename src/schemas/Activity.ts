@@ -75,7 +75,7 @@ Activity.init({
     },
     async autist (): Promise<void> {
       const autistId = this.autistId as number
-      const autist = await User.findByPk(autistId)
+      const autist = await Autist.findByPk(autistId)
 
       if (autist === null) {
         throw new Error('Não foi possível encontrar o autista.')
