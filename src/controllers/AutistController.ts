@@ -16,7 +16,7 @@ class AustistController {
           model: User,
           foreignKey: 'responsibleId',
           as: 'responsible',
-          attributes: ['name']
+          attributes: ['name', 'email']
         }
       ]
     })
@@ -34,7 +34,7 @@ class AustistController {
           model: User,
           foreignKey: 'responsibleId',
           as: 'responsible',
-          attributes: ['name']
+          attributes: ['name', 'email']
         }
       ]
     })
