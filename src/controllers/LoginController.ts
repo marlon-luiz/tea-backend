@@ -27,8 +27,19 @@ class LoginController {
       }
     })
 
+    const authenticated = countUsers === 1
+    let user = null
+
+    if (authenticated) {
+      user = await User.findOne({
+        attributes: ['id', 'email', 'name', 'type'],
+        where: { email }
+      })
+    }
+
     return res.json({
-      authenticated: countUsers === 1
+      authenticated,
+      user
     })
   }
 }
