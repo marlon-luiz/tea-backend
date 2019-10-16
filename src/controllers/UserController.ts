@@ -82,7 +82,11 @@ class UserController {
    * ```
    */
   public async store (req: Request, res: Response): Promise<Response> {
-    const { email, password, name, type } = req.body
+    const { email, password, passwordConfirmation, name, type } = req.body
+
+    if (password !== passwordConfirmation) {
+      throw new Error('As senhas não coincidem!')
+    }
 
     const user = await User.create({
       email,
