@@ -35,7 +35,7 @@ class StatusController {
 
     if (activity !== null) {
       activity = await activity.update({
-        isConcluded: false,
+        isConcluded: true,
         updatedBy: user
       })
     }
