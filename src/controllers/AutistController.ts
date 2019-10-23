@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import _ from 'lodash'
+import { Op } from 'sequelize'
 
 import Autist from '../schemas/Autist'
 import User from '../schemas/User'
@@ -9,7 +10,12 @@ class AustistController {
     const { user } = req.headers
 
     const autists = await Autist.findAll({
-      where: { createdBy: String(user) },
+      where: {
+        [Op.or]: [
+          { createdBy: String(user) },
+          { responsibleId: String(user) }
+        ]
+      },
       attributes: ['id', 'name', 'responsibleId'],
       include: [
         {
