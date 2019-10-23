@@ -15,6 +15,7 @@ class Activity extends Model {
   public repeat?: number;
   public repeatEvery?: string;
   public repeatOn?: string;
+  public isConcluded?: boolean;
 }
 Activity.init({
   title: {
@@ -60,7 +61,12 @@ Activity.init({
   },
   repeat: Sequelize.INTEGER,
   repeatEvery: Sequelize.STRING(5),
-  repeatOn: Sequelize.STRING(7)
+  repeatOn: Sequelize.STRING(7),
+  isConcluded: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+    }
 }, {
   sequelize,
   modelName: 'activities',
