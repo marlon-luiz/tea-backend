@@ -18,7 +18,8 @@ class ActivityController {
         'repeat',
         'repeatEvery',
         'repeatOn',
-        'autistId'
+        'autistId',
+        'isConcluded'
       ]
     })
 
@@ -58,7 +59,8 @@ class ActivityController {
       'repeat',
       'repeatEvery',
       'repeatOn',
-      'autistId'
+      'autistId',
+      'isConcluded'
     ]))
   }
 
@@ -112,7 +114,8 @@ class ActivityController {
       'repeat',
       'repeatEvery',
       'repeatOn',
-      'autistId'
+      'autistId',
+      'isConcluded'
     ]))
   }
 
@@ -130,7 +133,8 @@ class ActivityController {
         'repeat',
         'repeatEvery',
         'repeatOn',
-        'autistId'
+        'autistId',
+        'isConcluded'
       ]
     })
 
